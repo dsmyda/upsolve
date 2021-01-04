@@ -1,5 +1,6 @@
 from cement import Controller, ex
 import random
+from ..view.view import View
 
 class Shuffle(Controller):
     class Meta:

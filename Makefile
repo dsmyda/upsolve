@@ -19,9 +19,6 @@ test:
 		--cov-report=html:coverage-report \
 		tests/
 
-docker: clean
-	docker build -t upsolve:latest .
-
 dist: clean
 	rm -rf dist/*
 	python setup.py sdist

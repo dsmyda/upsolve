@@ -21,7 +21,7 @@ class Pop(Controller):
         webbrowser.open(problem.url, new = 2)
 
         start = time.time()
-        p = shell.Prompt("Press enter once you've finished", default='')
+        p = shell.Prompt("Time started! Press enter once you've solved", default='')
         p.prompt() # Prompt and discard the input.
 
         end = time.time()

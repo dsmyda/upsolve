@@ -1,4 +1,6 @@
-# Upsolve manages and reminds you about contest problems that you weren\'t able to solve.
+# Upsolve
+
+Upsolve manages and reminds you about contest problems that you weren\'t able to solve.
 
 ## Installation
 
@@ -53,17 +55,4 @@ Then use the included helper function via the `Makefile`:
 $ make dist
 
 $ make dist-upload
-```
-
-## Deployments
-
-### Docker
-
-Included is a basic `Dockerfile` for building and distributing `Upsolve`,
-and can be built with the included `make` helper:
-
-```
-$ make docker
-
-$ docker run -it upsolve --help
 ```

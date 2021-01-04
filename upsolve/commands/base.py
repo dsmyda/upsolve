@@ -21,7 +21,7 @@ class Base(Controller):
         description = 'Upsolve manages and reminds you about contest problems that you weren\'t able to solve'
 
         # text displayed at the bottom of --help output
-        epilog = 'Usage: upsolve push --lc -c 223 -q 3'
+        epilog = 'Usage: upsolve push -lc -c 223 -q 3'
 
         # controller level arguments. ex: 'upsolv --version'
         arguments = [

@@ -1,6 +1,7 @@
 import os
 from tinydb import TinyDB, Query
 from cement.utils import fs
+from .problems_table import ProblemsTable
 
 def init_app_database(app):
     app.log.debug("Initializing the upsolve database file")
@@ -13,11 +14,5 @@ def init_app_database(app):
         app.log.debug("Creating parent directory %s" % db_dir)
         os.makedirs(db_dir)
 
-    app.extend('db', TinyDB(db_absolute_path))
+    app.extend('problems_table', ProblemsTable(TinyDB(db_absolute_path)))
     app.log.debug("TinyDB initialization successful, connected to %s" % db_absolute_path)
-
-    create_templates_table(app)
-
-def create_templates_table(app):
-    app.log.debug("Creating the templates table if it doesn't already exist.")
-    app.db.table("templates")

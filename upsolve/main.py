@@ -1,9 +1,15 @@
-
 from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
-from .core.exc import UpsolveError
-from .controllers.base import Base
-from .hooks.database_init_hook import init_app_database
+from .commands.base import Base
+from .commands.clear.clear import Clear
+from .commands.view.view import View
+from .commands.shuffle.shuffle import Shuffle
+from .commands.pop.pop import Pop
+from .commands.push.push import Push
+from .platforms.platform_api import PlatformAPI
+from .platforms.leetcode.leetcode import LeetCode
+from .platforms.binarysearch.binarysearch import BinarySearch
+from .database.database_init_hook import init_app_database
 from .hooks.ascii_art_hook import print_ascii_art
 
 # configuration defaults
@@ -15,35 +21,27 @@ class Upsolve(App):
 
     class Meta:
         label = 'upsolve'
-
-        # configuration defaults
         config_defaults = CONFIG
-
-        # call sys.exit() on close
         exit_on_close = True
 
-        # load additional framework extensions
         extensions = [
-            'yaml',
-            'colorlog',
-            'jinja2',
+            'yaml', 'colorlog', 'tabulate',
         ]
 
-        # configuration handler
         config_handler = 'yaml'
-
-        # configuration file suffix
         config_file_suffix = '.yml'
-
-        # set the log handler
         log_handler = 'colorlog'
+        output_handler = 'tabulate'
 
-        # set the output handler
-        output_handler = 'jinja2'
+        interfaces = [
+            PlatformAPI
+        ]
 
-        # register handlers
         handlers = [
-            Base
+            # Command handlers
+            Base, Clear, View, Shuffle, Pop,Push,
+            # Platform API handlers
+            LeetCode, BinarySearch
         ]
 
         hooks = [
@@ -51,27 +49,12 @@ class Upsolve(App):
             ('post_setup', init_app_database)
         ]
 
-class upsolveTest(TestApp,Upsolve):
-    """A sub-class of Upsolv that is better suited for testing."""
-
-    class Meta:
-        label = 'upsolve'
-
-
 def main():
     with Upsolve() as app:
         try:
             app.run()
         except AssertionError as e:
             print('AssertionError > %s' % e.args[0])
-            app.exit_code = 1
-
-            if app.debug is True:
-                import traceback
-                traceback.print_exc()
-
-        except UpsolveError as e:
-            print('UpsolveError > %s' % e.args[0])
             app.exit_code = 1
 
             if app.debug is True:

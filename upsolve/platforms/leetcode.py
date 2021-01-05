@@ -1,5 +1,5 @@
-from ..platform_api_handler import PlatformAPIHandler
-from ...database.problem_metadata import ProblemMetadata
+from .platform_api_handler import PlatformAPIHandler
+from ..database.problem_metadata import ProblemMetadata
 import requests, json, sys
 
 CONTEST_URL_TEMPLATE = "https://leetcode.com/contest/api/info/weekly-contest-%d"

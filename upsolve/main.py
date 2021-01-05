@@ -1,14 +1,14 @@
 from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
 from .commands.base import Base
-from .commands.clear.clear import Clear
-from .commands.view.view import View
-from .commands.shuffle.shuffle import Shuffle
-from .commands.pop.pop import Pop
-from .commands.push.push import Push
+from .commands.clear import Clear
+from .commands.view import View
+from .commands.shuffle import Shuffle
+from .commands.pop import Pop
+from .commands.push import Push
 from .platforms.platform_api import PlatformAPI
-from .platforms.leetcode.leetcode import LeetCode
-from .platforms.binarysearch.binarysearch import BinarySearch
+from .platforms.leetcode import LeetCode
+from .platforms.binarysearch import BinarySearch
 from .database.database_init_hook import init_app_database
 from .hooks.ascii_art_hook import print_ascii_art
 

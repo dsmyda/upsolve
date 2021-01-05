@@ -1,4 +1,4 @@
-from ..platform_api_handler import PlatformAPIHandler
+from .platform_api_handler import PlatformAPIHandler
 
 CONTEST_URL_TEMPLATE = ""
 

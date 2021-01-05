@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ...platforms.leetcode.leetcode import LeetCode
+from ..platforms.leetcode import LeetCode
 
 class Push(Controller):
 

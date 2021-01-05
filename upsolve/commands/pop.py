@@ -30,5 +30,5 @@ class Pop(Controller):
         minutes, seconds = divmod(elapsed, 60)
         hours, minutes = divmod(minutes, 60)
 
-        self.app.log.info("%s took you %s" % (problem.title,
+        self.app.log.info("%s took you %s\n" % (problem.title,
         '{:d}:{:02d}:{:02d}'.format(hours, minutes, seconds)))

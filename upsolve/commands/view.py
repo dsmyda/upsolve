@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ...database.problem_metadata import ProblemMetadata
+from ..database.problem_metadata import ProblemMetadata
 
 class View(Controller):
 

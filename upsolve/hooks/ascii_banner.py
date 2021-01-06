@@ -1,6 +1,6 @@
 from ..core.version import get_version
 
-def print_ascii_art(app):
+def show_ascii_banner(app):
     print("""
 
  /$$   /$$                               /$$
@@ -12,7 +12,7 @@ def print_ascii_art(app):
 |  $$$$$$/| $$$$$$$/ /$$$$$$$/|  $$$$$$/| $$   \  $/  |  $$$$$$$
  \______/ | $$____/ |_______/  \______/ |__/    \_/    \_______/
           | $$
-          | $$                      CLI v%s
+          | $$                                        CLI v%s
           |__/                                 created by dsmyda
 
           """ % get_version())

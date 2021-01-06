@@ -3,17 +3,17 @@ from cement import shell
 
 YES_OPTION, NO_OPTION = "y", "n"
 
-class Clear(Controller):
+class Drop(Controller):
 
     class Meta:
-        label = 'clear'
+        label = 'drop'
         stacked_type = 'embedded'
         stacked_on = 'base'
 
     @ex(
-        help='clear the question queue'
+        help='Drop all questions in the queue'
     )
-    def clear(self):
+    def drop(self):
         pending_problems = self.app.problems_table.size()
         self.app.log.warning("Dropping %d pending problem(s)." % pending_problems)
 
@@ -21,7 +21,7 @@ class Clear(Controller):
         ans = p.prompt()
 
         if ans == YES_OPTION:
-            self.app.problems_table.delete_all()
+            self.app.problems_table.drop()
             self.app.log.info("Successfully dropped %d problem(s)." \
             " Your queue is now empty.\n" % pending_problems)
         else:

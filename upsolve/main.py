@@ -1,16 +1,16 @@
 from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
 from .commands.base import Base
-from .commands.clear import Clear
-from .commands.view import View
+from .commands.drop import Drop
+from .commands.list import List
 from .commands.shuffle import Shuffle
-from .commands.pop import Pop
-from .commands.push import Push
+from .commands.next import Next
+from .commands.new import New
 from .platforms.platform_api import PlatformAPI
 from .platforms.leetcode import LeetCode
 from .platforms.binarysearch import BinarySearch
-from .database.database_init_hook import init_app_database
-from .hooks.ascii_art_hook import print_ascii_art
+from .database.database_initialization import database_initialization_hook
+from .hooks.ascii_banner import show_ascii_banner
 
 # configuration defaults
 CONFIG = init_defaults('upsolve')
@@ -39,14 +39,14 @@ class Upsolve(App):
 
         handlers = [
             # Command handlers
-            Base, Clear, View, Shuffle, Pop,Push,
+            Base, Drop, List, Shuffle, Next, New,
             # Platform API handlers
             LeetCode, BinarySearch
         ]
 
         hooks = [
-            ('pre_setup', print_ascii_art),
-            ('post_setup', init_app_database)
+            ('pre_setup', show_ascii_banner),
+            ('post_setup', database_initialization_hook)
         ]
 
 def main():

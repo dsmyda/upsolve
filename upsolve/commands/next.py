@@ -33,4 +33,4 @@ class Next(Controller):
         hours, minutes = divmod(minutes, 60)
 
         self.app.log.info("'%s' took you %s%s\n" % (problem.title, RED,
-        '{:d}:{:02d}:{:02d}'.format(hours, minutes, seconds)))
+        '{:d}:{:02d}:{:02d}s'.format(hours, minutes, seconds)))

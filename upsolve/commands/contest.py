@@ -54,7 +54,7 @@ class Contest(Controller):
         contest_handler = self.app.handler.get('contest_api', contest_code, setup=True)
         if question_number:
             problem_metadata = contest_handler.get_metadata(contest_number, question_number)
-            id = self.app.problems_table.add(problem_metadata)[0]
+            self.app.problems_table.add(problem_metadata)
             print()
             log.debug("Successfully inserted into the problems table: %s" % str(problem_metadata))
             log.info("%s[%s] %s successfully added." %
@@ -62,7 +62,7 @@ class Contest(Controller):
         else:
             problem_metadatas = contest_handler.get_all_questions_metadata(contest_number)
             print()
-            ids = self.app.problems_table.add(*problem_metadatas)
+            self.app.problems_table.add(*problem_metadatas)
             log.debug("Successfully inserted into the problems table: %s" % str(problem_metadatas))
             log.info("Successfully queued the following problems")
             for problem in problem_metadatas:

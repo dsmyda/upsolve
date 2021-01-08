@@ -1,3 +1,5 @@
+from gql import Client, gql
+from gql.transport.requests import RequestsHTTPTransport
 from .contest_interface import ContestInterface
 from cement import Handler
 from ..database.model.problem import Problem
@@ -15,6 +17,28 @@ DIFFICULTY = {
 
 PROBLEM_URL_TEMPLATE = "https://leetcode.com/problems/%s/"
 
+def add_tags(problem, title_slug):
+    transport = RequestsHTTPTransport(
+        url="https://leetcode.com/graphql", verify=True, retries=3,
+    )
+
+    client = Client(transport=transport)
+    query = gql(
+        '''
+        query getQuestionDetail($titleSlug: String!) {
+            question(titleSlug: $titleSlug) {
+                topicTags {
+                    name
+                }
+            }
+        }
+        '''
+    )
+    params = {'titleSlug': title_slug}
+    result = client.execute(query, variable_values=params)
+    for tag in result['question']['topicTags']:
+        problem.add_tag(tag['name'])
+
 def create_problem_instance(code, contest_number, question_number, contest_metadata, question_metadata):
     problem = Problem()
     problem.platform = LEETCODE
@@ -25,6 +49,8 @@ def create_problem_instance(code, contest_number, question_number, contest_metad
     problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['title_slug']
     problem.difficulty = DIFFICULTY[question_number]
+
+    add_tags(problem, question_metadata['title_slug'])
     return problem
 
 def query_all_questions(log, code, contest_number, template):

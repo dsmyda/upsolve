@@ -33,17 +33,17 @@ class ProblemsTable:
     def drop(self):
         ''' Drop all problems in the table '''
 
-        print(self.table.truncate())
+        self.table.truncate()
 
     def pop(self):
         ''' Pop off the first problem in the table '''
 
-        if self.size():
+        if len(self):
             problem = next(iter(self.table))
             self.table.remove(where(columns.uuid) == problem[columns.uuid])
             return Problem(problem)
 
-    def size(self):
+    def __len__(self):
         ''' Return the number of problems in the table '''
 
         return len(self.table)

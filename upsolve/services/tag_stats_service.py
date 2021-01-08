@@ -5,3 +5,6 @@ class TagStatsService:
 
     def update_tag_counts(self, *problems):
         self.tag_stats_table.update_tag_counts(*problems)
+
+    def get_top_tags(self):
+        pass

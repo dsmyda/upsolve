@@ -18,4 +18,4 @@ class ProblemsService:
         return self.problems_table.all()
 
     def size(self):
-        return self.problems_table.size()
+        return len(self.problems_table)

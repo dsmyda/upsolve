@@ -1,6 +1,6 @@
 from ...constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY
 from collections.abc import Mapping
-from ..namespace import Namespace
+from ...namespace import Namespace
 from sortedcontainers import SortedList
 import uuid
 
@@ -64,7 +64,7 @@ class Problem(Mapping):
 
     def add_tag(self, tag):
         normalized_tag = tag.lower().strip()
-        self._info[columns.tags].append(tag)
+        self._info[columns.tags].append(normalized_tag)
 
     @property
     def contest_code(self):

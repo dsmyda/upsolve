@@ -12,6 +12,7 @@ class Shuffle(Controller):
         help='Shuffle problems in the queue'
     )
     def shuffle(self):
+        print()
         problems = self.app.problems_table.all()
         random.shuffle(problems)
         self.app.problems_table.drop()

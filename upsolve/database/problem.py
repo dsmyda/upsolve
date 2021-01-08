@@ -1,33 +1,36 @@
 from ..constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY
 from collections.abc import Mapping
+from .namespace import Namespace
 import uuid
 
 # column keys
-UUID = "uuid"
-CONTEST = "contest"
-PLATFORM = "platform"
-TITLE = "title"
-URL = "url"
-DIFFICULTY = "difficulty"
-CONTEST_NUMBER = "contest_number"
-PROBLEM_NUMBER = "problem_number"
-CONTEST_CODE = "contest_code"
+columns = Namespace(
+    uuid =           "uuid",
+    contest_title =  "contest_title",
+    platform =       "platform",
+    problem_title =  "problem_title",
+    url =            "url",
+    difficulty =     "difficulty",
+    contest_number = "contest_number",
+    problem_number = "problem_number",
+    contest_code =   "contest_code"
+)
 
 class Problem(Mapping):
     ''' Represents a problem metadata document in the database '''
 
     def __init__(self, info=dict()):
         self._info = info
-        if UUID not in self._info:
-            self._info[UUID] = str(uuid.uuid1())
+        if columns.uuid not in self._info:
+            self._info[columns.uuid] = str(uuid.uuid1())
 
     def values(self):
         ''' Table values for display '''
 
         return [
             PLATFORM_DISPLAY[self.platform],
-            self.contest,
-            self.title,
+            self.contest_title,
+            self.problem_title,
             DIFFICULTY_DISPLAY[self.difficulty]
         ]
 
@@ -35,7 +38,7 @@ class Problem(Mapping):
     def headers():
         ''' Table headers for display '''
 
-        return [PLATFORM, CONTEST, TITLE, DIFFICULTY]
+        return [columns.platform, columns.contest_title, columns.problem_title, columns.difficulty]
 
     def __getitem__(self, key):
         return self._info[key]
@@ -51,64 +54,64 @@ class Problem(Mapping):
 
     @property
     def contest_code(self):
-        return self._info[CONTEST_CODE]
+        return self._info[columns.contest_code]
 
     @contest_code.setter
     def contest_code(self, code):
-        self._info[CONTEST_CODE] = code
+        self._info[columns.contest_code] = code
 
     @property
     def contest_number(self):
-        return self._info[CONTEST_NUMBER]
+        return self._info[columns.contest_number]
 
     @contest_number.setter
     def contest_number(self, number):
-        self._info[CONTEST_NUMBER] = number
+        self._info[columns.contest_number] = number
 
     @property
     def question_number(self):
-        return self._info[PROBLEM_NUMBER]
+        return self._info[columns.problem_number]
 
     @question_number.setter
     def question_number(self, number):
-        self._info[PROBLEM_NUMBER] = number
+        self._info[columns.problem_number] = number
 
     @property
-    def contest(self):
-        return self._info[CONTEST]
+    def contest_title(self):
+        return self._info[columns.contest_title]
 
-    @contest.setter
-    def contest(self, contest):
-        self._info[CONTEST] = contest
+    @contest_title.setter
+    def contest_title(self, contest_title):
+        self._info[columns.contest_title] = contest_title
 
     @property
     def platform(self):
-        return self._info[PLATFORM]
+        return self._info[columns.platform]
 
     @platform.setter
     def platform(self, platform):
-        self._info[PLATFORM] = platform
+        self._info[columns.platform] = platform
 
     @property
-    def title(self):
-        return self._info[TITLE]
+    def problem_title(self):
+        return self._info[columns.problem_title]
 
-    @title.setter
-    def title(self, title):
-        self._info[TITLE] = title
+    @problem_title.setter
+    def problem_title(self, problem_title):
+        self._info[columns.problem_title] = problem_title
 
     @property
     def url(self):
-        return self._info[URL]
+        return self._info[columns.url]
 
     @url.setter
     def url(self, url):
-        self._info[URL] = url
+        self._info[columns.url] = url
 
     @property
     def difficulty(self):
-        return self._info[DIFFICULTY]
+        return self._info[columns.difficulty]
 
     @difficulty.setter
     def difficulty(self, difficulty):
-        self._info[DIFFICULTY] = difficulty
+        self._info[columns.difficulty] = difficulty

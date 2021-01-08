@@ -1,5 +1,5 @@
 from tinydb import where, Query
-from ..problem import Problem, CONTEST_CODE, CONTEST_NUMBER, PROBLEM_NUMBER
+from ..problem import Problem, columns
 
 TABLE_NAME = "problems"
 
@@ -26,9 +26,9 @@ class ProblemQueueTable:
             (contest_code, contest_number, question_number) is already present '''
 
         return self.table.contains(
-            (where(CONTEST_CODE) == contest_code) &
-            (where(CONTEST_NUMBER) == contest_number) &
-            (where(PROBLEM_NUMBER) == question_number)
+            (where(columns.contest_code) == contest_code) &
+            (where(columns.contest_number) == contest_number) &
+            (where(columns.problem_number) == question_number)
         )
 
     def drop(self):
@@ -41,7 +41,7 @@ class ProblemQueueTable:
 
         if self.size():
             problem = next(iter(self.table))
-            self.table.remove(where(UUID) == problem[UUID])
+            self.table.remove(where(columns.uuid) == problem[columns.uuid])
             return Problem(problem)
 
     def size(self):

@@ -28,8 +28,8 @@ def query(log, code, type, contest_number, question_number):
     problem.contest_code = code
     problem.contest_number = contest_number
     problem.question_number = question_number
-    problem.contest = contest_metadata['name']
-    problem.title = question_metadata['title']
+    problem.contest_title = contest_metadata['name']
+    problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['slug']
     problem.difficulty = DIFFICULTY[question_metadata['difficulty']]
 

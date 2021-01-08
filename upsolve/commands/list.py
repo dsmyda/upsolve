@@ -12,6 +12,7 @@ class List(Controller):
         help='List all problems in the queue'
     )
     def list(self):
+        print()
         headers = Problem.headers()
         problems = self.app.problems_table.all()
         values = [problem.values() for problem in problems]

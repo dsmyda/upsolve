@@ -14,6 +14,7 @@ class Clear(Controller):
         help='Clear all questions in the queue'
     )
     def clear(self):
+        print()
         pending_problems = self.app.problems_table.size()
         self.app.log.warning("Dropping %d pending problem(s)." % pending_problems)
 

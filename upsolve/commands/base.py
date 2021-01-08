@@ -29,10 +29,12 @@ class Base(Controller):
         label = 'base'
 
         # text displayed at the top of --help output
-        description = 'Upsolve manages and reminds you about contest problems that you weren\'t able to solve'
+        description = 'Upsolve manages and reminds you about contest problems ' \
+        'that you weren\'t able to solve. \nIt also tracks basic stats to help you ' \
+        'identify concepts that need more practice.'
 
         # text displayed at the bottom of --help output
-        epilog = 'Usage: upsolve push -lc -c 223 -q 3'
+        epilog = 'Usage: upsolve contest -lcw 223 3'
 
         # controller level arguments. ex: 'upsolv --version'
         arguments = [

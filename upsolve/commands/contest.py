@@ -52,6 +52,7 @@ class Contest(Controller):
         ],
     )
     def contest(self):
+        print()
         # Precondition - ensure only one (and exactly one) platform is specified.
         log = self.app.log
         question_number = self.app.pargs.question
@@ -73,6 +74,6 @@ class Contest(Controller):
 
         log.debug("Successfully inserted into the problems table: %s" % str(problem_metadata))
         log.info("%s Problem %s successfully added." %
-            (DIFFICULTY_DISPLAY[problem_metadata.difficulty] + GREEN, WHITE + problem_metadata.title + GREEN))
+            (DIFFICULTY_DISPLAY[problem_metadata.difficulty] + GREEN, WHITE + problem_metadata.problem_title + GREEN))
         log.info("Problem is currently position %d in the queue." % id)
         log.info("Consider shuffling for a random order (run 'upsolve shuffle').\n")

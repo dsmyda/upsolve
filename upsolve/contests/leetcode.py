@@ -2,7 +2,7 @@ from .contest_interface import ContestInterface
 from cement import Handler
 from ..database.problem import Problem
 import requests, json, sys
-from ..constants import PLATFORM_DISPLAY, LEETCODE, LEETCODE_WEEKLY_CODE, LEETCODE_BIWEEKLY_CODE, EASY, MEDIUM, HARD
+from ..constants import GREEN, PLATFORM_DISPLAY, LEETCODE, LEETCODE_WEEKLY_CODE, LEETCODE_BIWEEKLY_CODE, EASY, MEDIUM, HARD
 
 # Indexed by question in the contest, the keys
 # are not integer values taken from question metadata
@@ -24,8 +24,8 @@ def query(log, code, contest_number, question_number, template):
     problem.contest_code = code
     problem.contest_number = contest_number
     problem.question_number = question_number
-    problem.contest = contest_metadata['contest']['title']
-    problem.title = question_metadata['title']
+    problem.contest_title = contest_metadata['contest']['title']
+    problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['title_slug']
     problem.difficulty = DIFFICULTY[question_number]
 
@@ -63,7 +63,7 @@ class LeetcodeWeekly(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for weekly contest metadata..." % PLATFORM_DISPLAY[LEETCODE])
+        log.info("Querying %s for weekly contest metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
         return query(log, LEETCODE_WEEKLY_CODE, contest_number,
             question_number, LeetcodeWeekly.URL_TEMPLATE)
 
@@ -76,6 +76,6 @@ class LeetcodeBiweekly(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for biweekly contest metadata..." % PLATFORM_DISPLAY[LEETCODE])
+        log.info("Querying %s for biweekly contest metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
         return query(log, LEETCODE_BIWEEKLY_CODE, contest_number,
             question_number, LeetcodeBiweekly.BIWEEKLY_URL_TEMPLATE)

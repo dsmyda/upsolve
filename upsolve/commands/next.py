@@ -14,6 +14,7 @@ class Next(Controller):
         help='Get the next problem from the queue'
     )
     def next(self):
+        print()
         problem = self.app.problems_table.pop()
         if not problem:
             self.app.log.warning("Nothing to do!\n")

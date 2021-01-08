@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ..constants import GREEN, WHITE, DIFFICULTY_DISPLAY, LEETCODE_WEEKLY_CODE, LEETCODE_BIWEEKLY_CODE, BINARYSEARCH_WEEKLY_CODE, BINARYSEARCH_EDUCATIONAL_CODE
+from ..constants import GREEN, WHITE, DIFFICULTY_DISPLAY, CODES
 from argparse import ArgumentTypeError
 
 class Contest(Controller):
@@ -9,8 +9,11 @@ class Contest(Controller):
         stacked_type = 'embedded'
         stacked_on = 'base'
 
-    def ensure_one_contest(self):
-        print(self.app.pargs)
+    def format_contest_options():
+        ans = []
+        for code in CODES:
+            ans.append("%s (%s)" % (code, CODES[code]))
+        return ', '.join(ans)
 
     def validate_integer(value):
         try:
@@ -25,43 +28,27 @@ class Contest(Controller):
     @ex(
         help='Add a new contest problem to the queue',
         arguments=[
-            ( ['-' + LEETCODE_WEEKLY_CODE],
-              {'help': 'Leetcode Weekly',
-              'action': 'store_const',
-               'const': LEETCODE_WEEKLY_CODE} ),
-            ( ['-' + LEETCODE_BIWEEKLY_CODE],
-              {'help': 'Leetcode Biweekly',
-               'action': 'store_const',
-               'const': LEETCODE_BIWEEKLY_CODE} ),
-            ( ['-' + BINARYSEARCH_WEEKLY_CODE],
-              {'help': 'Binarysearch Weekly',
-               'action': 'store_const',
-               'const': BINARYSEARCH_WEEKLY_CODE} ),
-            ( ['-' + BINARYSEARCH_EDUCATIONAL_CODE],
-              {'help': 'Binarysearch Educational',
-               'action': 'store_const',
-               'const': BINARYSEARCH_EDUCATIONAL_CODE} ),
+            ( ['type'],
+              {'help': format_contest_options(),
+               'action': 'store',
+               'choices': list(CODES.keys()),
+               'metavar': "type"}),
             ( ['number'],
-              {'help': 'Specify the contest number. Ex: 220 ',
+              {'help': 'Contest number (Ex: 220) ',
                'action': 'store',
                'type' : validate_integer} ),
             ( ['question'],
-              {'help': 'Specify the question number. Ex: 4 ',
+              {'help': 'Question number (Ex: 4) ',
                'action': 'store',
                'type' : validate_integer} )
         ],
     )
     def contest(self):
         print()
-        # Precondition - ensure only one (and exactly one) platform is specified.
         log = self.app.log
+        contest_code = self.app.pargs.type
         question_number = self.app.pargs.question
         contest_number = self.app.pargs.number
-        # FIX THIS
-        contest_code = (self.app.pargs.lcw or
-                        self.app.pargs.bsw or
-                        self.app.pargs.bse or
-                        self.app.pargs.lcb)
 
         if self.app.problems_table.exists(contest_code, contest_number, question_number):
             log.info("Problem already exists, exiting...")

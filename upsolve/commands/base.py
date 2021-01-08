@@ -34,7 +34,7 @@ class Base(Controller):
         'identify concepts that need more practice.'
 
         # text displayed at the bottom of --help output
-        epilog = 'Usage: upsolve contest -lcw 223 3'
+        epilog = 'Usage: upsolve contest lcw 223 3'
 
         # controller level arguments. ex: 'upsolv --version'
         arguments = [

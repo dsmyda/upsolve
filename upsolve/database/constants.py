@@ -1,8 +1,0 @@
-UUID = "uuid"
-CONTEST = "contest"
-PLATFORM = "platform"
-TITLE = "title"
-URL = "url"
-DIFFICULTY = "difficulty"
-CONTEST_NUMBER = "contest_number"
-PROBLEM_NUMBER = "problem_number"

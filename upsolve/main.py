@@ -1,14 +1,14 @@
 from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
 from .commands.base import Base
-from .commands.drop import Drop
+from .commands.clear import Clear
 from .commands.list import List
 from .commands.shuffle import Shuffle
 from .commands.next import Next
-from .commands.new import New
-from .platforms.platform_api import PlatformAPI
-from .platforms.leetcode import LeetCode
-from .platforms.binarysearch import BinarySearch
+from .commands.contest import Contest
+from .contests.contest_interface import ContestInterface
+from .contests.leetcode import LeetcodeWeekly, LeetcodeBiweekly
+from .contests.binarysearch import BinarysearchWeekly, BinarysearchEdu
 from .database.database_initialization import database_initialization_hook
 from .hooks.ascii_banner import show_ascii_banner
 
@@ -34,14 +34,15 @@ class Upsolve(App):
         output_handler = 'tabulate'
 
         interfaces = [
-            PlatformAPI
+            ContestInterface
         ]
 
         handlers = [
             # Command handlers
-            Base, Drop, List, Shuffle, Next, New,
-            # Platform API handlers
-            LeetCode, BinarySearch
+            Base, Clear, List, Shuffle, Next, Contest,
+            # Contest handlers
+            LeetcodeWeekly, LeetcodeBiweekly,
+            BinarysearchWeekly, BinarysearchEdu
         ]
 
         hooks = [

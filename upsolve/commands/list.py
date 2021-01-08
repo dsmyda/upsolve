@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ..database.problem_metadata import ProblemMetadata
+from ..database.tables.problems_table import Problem
 
 class List(Controller):
 
@@ -12,7 +12,7 @@ class List(Controller):
         help='List all problems in the queue'
     )
     def list(self):
-        headers = ProblemMetadata.headers()
+        headers = Problem.headers()
         problems = self.app.problems_table.all()
         values = [problem.values() for problem in problems]
         self.app.render(values, headers=headers)

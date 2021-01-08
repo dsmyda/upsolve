@@ -1,12 +1,12 @@
 from abc import abstractmethod
 from cement import Interface
 
-class PlatformAPI(Interface):
+class ContestInterface(Interface):
     ''' The necessary APIs to implement in order to support
-        a new platform '''
+        a new platform's contest '''
 
     class Meta:
-        interface = "platform_api"
+        interface = "contest_api"
 
     @abstractmethod
     def get_metadata(self, contest_number, question_number):

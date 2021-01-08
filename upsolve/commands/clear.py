@@ -3,17 +3,17 @@ from cement import shell
 
 YES_OPTION, NO_OPTION = "y", "n"
 
-class Drop(Controller):
+class Clear(Controller):
 
     class Meta:
-        label = 'drop'
+        label = 'clear'
         stacked_type = 'embedded'
         stacked_on = 'base'
 
     @ex(
-        help='Drop all questions in the queue'
+        help='Clear all questions in the queue'
     )
-    def drop(self):
+    def clear(self):
         pending_problems = self.app.problems_table.size()
         self.app.log.warning("Dropping %d pending problem(s)." % pending_problems)
 

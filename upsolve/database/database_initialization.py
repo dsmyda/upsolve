@@ -2,7 +2,7 @@ import os
 from tinydb import TinyDB, Query
 from cement.utils import fs
 from .tables.problem_queue_table import ProblemQueueTable
-from .tables.problem_stats_table import ProblemStatsTable
+from .tables.tag_stats_table import TagStatsTable
 
 def database_initialization_hook(app):
     ''' Database init hook run before command processing '''
@@ -19,5 +19,5 @@ def database_initialization_hook(app):
 
     tiny_db = TinyDB(db_absolute_path)
     app.extend('problems_table', ProblemQueueTable(tiny_db))
-    app.extend('stats_table', ProblemStatsTable(tiny_db))
+    app.extend('tag_stats_table', TagStatsTable(tiny_db))
     app.log.debug("TinyDB initialization successful, connected to %s" % db_absolute_path)

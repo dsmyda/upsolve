@@ -7,17 +7,16 @@ columns = Namespace(
     uuid =        "uuid",
     difficulty =  "difficulty",
     tag =         "tag",
-    median_time = "median_time",
-    best_time =   "best_time",
-    worst_time =  "worst_time"
+    times =       "times",
+    count =       "count"
 )
 
-class ProblemStats(Mapping):
+class TagStats(Mapping):
 
     def __init__(self, info=None):
         if info is None:
             info = dict()
-            
+
         self._info = info
         if columns.uuid not in self._info:
             self._info[columns.uuid] = str(uuid.uuid1())

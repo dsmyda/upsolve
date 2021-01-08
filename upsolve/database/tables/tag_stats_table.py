@@ -1,8 +1,8 @@
 from tinydb import where, Query
 
-TABLE_NAME = "stats"
+TABLE_NAME = "tag_stats"
 
-class ProblemStatsTable:
+class TagStatsTable:
 
     def __init__(self, tinydb):
         self.table = tinydb.table(TABLE_NAME)

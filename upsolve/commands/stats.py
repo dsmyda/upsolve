@@ -1,6 +1,6 @@
 from cement import Controller, ex
 from ..constants import DIFFICULTIES, DIFFICULTY_DISPLAY
-from ..database.model.problem_stats import ProblemStats
+from ..database.model.tag_stats import TagStats
 
 class Stats(Controller):
 

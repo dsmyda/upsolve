@@ -3,7 +3,7 @@ from ..model.problem import Problem, columns
 
 TABLE_NAME = "problems"
 
-class ProblemQueueTable:
+class ProblemsTable:
 
     def __init__(self, tinydb):
         self.table = tinydb.table(TABLE_NAME)

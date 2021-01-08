@@ -17,7 +17,7 @@ class ContestInterface(Interface):
         pass
 
     @abstractmethod
-    def get_questions_metadata(self, contest_number):
+    def get_all_questions_metadata(self, contest_number):
         '''
         Get all problem metadata from the contest.
         '''

@@ -19,7 +19,9 @@ columns = Namespace(
 class Problem(Mapping):
     ''' Represents a problem metadata document in the database '''
 
-    def __init__(self, info=dict()):
+    def __init__(self, info=None):
+        if info is None:
+            info = dict()
         self._info = info
         if columns.uuid not in self._info:
             self._info[columns.uuid] = str(uuid.uuid1())

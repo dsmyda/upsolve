@@ -15,10 +15,7 @@ DIFFICULTY = {
 
 PROBLEM_URL_TEMPLATE = "https://leetcode.com/problems/%s/"
 
-def query(log, code, contest_number, question_number, template):
-    contest_metadata = get_contest_metadata(log, template % contest_number)
-    question_metadata = get_question_metadata(log, contest_metadata, question_number)
-
+def create_problem_instance(code, contest_number, question_number, contest_metadata, question_metadata):
     problem = Problem()
     problem.platform = LEETCODE
     problem.contest_code = code
@@ -28,8 +25,24 @@ def query(log, code, contest_number, question_number, template):
     problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['title_slug']
     problem.difficulty = DIFFICULTY[question_number]
-
     return problem
+
+def query_all_questions(log, code, contest_number, template):
+    contest_metadata = get_contest_metadata(log, template % contest_number)
+    questions_list = contest_metadata['questions']
+
+    ans = []
+    for i, question_metadata in enumerate(questions_list):
+        ans.append(create_problem_instance(code, contest_number, i + 1,
+            contest_metadata, question_metadata))
+        print([p.problem_title for p in ans])
+    return ans
+
+def query_question(log, code, contest_number, question_number, template):
+    contest_metadata = get_contest_metadata(log, template % contest_number)
+    question_metadata = get_question_metadata(log, contest_metadata, question_number)
+    return create_problem_instance(code, contest_number, question_number,
+        contest_metadata, question_metadata)
 
 def get_contest_metadata(log, url):
     response = requests.get(url)
@@ -64,12 +77,14 @@ class LeetcodeWeekly(ContestInterface, Handler):
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
         log.info("Querying %s for weekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
-        return query(log, LEETCODE_WEEKLY_CODE, contest_number,
+        return query_question(log, LEETCODE_WEEKLY_CODE, contest_number,
             question_number, LeetcodeWeekly.URL_TEMPLATE)
 
     def get_all_questions_metadata(self, contest_number):
         log = self.app.log
         log.info("Querying %s for all weekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
+        return query_all_questions(log, LEETCODE_WEEKLY_CODE, contest_number,
+            LeetcodeWeekly.URL_TEMPLATE)
 
 class LeetcodeBiweekly(ContestInterface, Handler):
 
@@ -81,9 +96,11 @@ class LeetcodeBiweekly(ContestInterface, Handler):
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
         log.info("Querying %s for biweekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
-        return query(log, LEETCODE_BIWEEKLY_CODE, contest_number,
+        return query_question(log, LEETCODE_BIWEEKLY_CODE, contest_number,
             question_number, LeetcodeBiweekly.BIWEEKLY_URL_TEMPLATE)
 
     def get_all_questions_metadata(self, contest_number):
         log = self.app.log
         log.info("Querying %s for all biweekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
+        return query_all_questions(log, LEETCODE_BIWEEKLY_CODE, contest_number,
+            LeetcodeBiweekly.BIWEEKLY_URL_TEMPLATE)

@@ -19,10 +19,7 @@ DIFFICULTY = {
     3: HARDER
 }
 
-def query(log, code, type, contest_number, question_number):
-    contest_metadata = get_contest_metadata(log, type, contest_number)
-    question_metadata = get_question_metadata(log, contest_metadata, contest_number, question_number)
-
+def create_problem_instance(code, contest_number, question_number, contest_metadata, question_metadata):
     problem = Problem()
     problem.platform = BINARYSEARCH
     problem.contest_code = code
@@ -32,8 +29,25 @@ def query(log, code, type, contest_number, question_number):
     problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['slug']
     problem.difficulty = DIFFICULTY[question_metadata['difficulty']]
-
     return problem
+
+def get_all_problems(log, code, type, contest_number):
+    contest_metadata = get_contest_metadata(log, type, contest_number)
+    questions_list = get_questions_list(contest_metadata)
+
+    ans = []
+    for i, question in enumerate(questions_list):
+        question_metadata = question['question']
+        ans.append(create_problem_instance(code, contest_number, i + 1, contest_metadata, question_metadata))
+
+    return ans
+
+def get_problem(log, code, type, contest_number, question_number):
+    contest_metadata = get_contest_metadata(log, type, contest_number)
+    question_metadata = get_question_metadata(log, contest_metadata,
+        contest_number, question_number)
+    return create_problem_instance(code, contest_number, question_number,
+    contest_metadata, question_metadata)
 
 def get_contest_metadata(log, type, contest_number):
     all_contests = requests.get(ALL_CONTESTS_URL)
@@ -48,13 +62,17 @@ def get_contest_metadata(log, type, contest_number):
     # Contests in the JSON are zero-indexed
     return contests_of_type[contest_number - 1]
 
-def get_question_metadata(log, contest, contest_number, question_number):
+def get_questions_list(contest):
     channel_slug = contest["channelSlug"]
     room_slug = contest["slug"]
 
     contest_lobby = requests.get(CONTEST_LOBBY_URL_TEMPLATE % (channel_slug, room_slug))
     contest_lobby = json.loads(contest_lobby.text)
     questions = contest_lobby['sessions'][0]['questionsets']
+    return questions
+
+def get_question_metadata(log, contest, contest_number, question_number):
+    questions = get_questions_list(contest)
 
     if len(questions) < question_number:
         log.error("Question %d was not found. Contest %d only has" \
@@ -74,12 +92,14 @@ class BinarysearchWeekly(ContestInterface, Handler):
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
         log.info("Querying %s for weekly question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
-        return query(log, BINARYSEARCH_WEEKLY_CODE,
+        return get_problem(log, BINARYSEARCH_WEEKLY_CODE,
             BinarysearchWeekly.JSON_KEY, contest_number, question_number)
 
     def get_all_questions_metadata(self, contest_number):
         log = self.app.log
         log.info("Querying %s for all weekly question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
+        return get_all_problems(log, BINARYSEARCH_WEEKLY_CODE,
+            BinarysearchWeekly.JSON_KEY, contest_number)
 
 class BinarysearchEdu(ContestInterface, Handler):
 
@@ -91,9 +111,11 @@ class BinarysearchEdu(ContestInterface, Handler):
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
         log.info("Querying %s for educational question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
-        return query(log, BINARYSEARCH_EDUCATIONAL_CODE,
+        return get_problem(log, BINARYSEARCH_EDUCATIONAL_CODE,
             BinarysearchEdu.JSON_KEY, contest_number, question_number)
 
     def get_all_questions_metadata(self, contest_number):
         log = self.app.log
         log.info("Querying %s for all educational question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
+        return get_all_problems(log, BINARYSEARCH_WEEKLY_CODE,
+            BinarysearchEdu.JSON_KEY, contest_number)

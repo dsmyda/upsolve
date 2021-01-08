@@ -20,7 +20,7 @@ class Next(Controller):
             self.app.log.warning("Nothing to do!\n")
             return
 
-        self.app.log.info("Opening %s%s problem %s" % (DIFFICULTY_DISPLAY[problem.difficulty], GREEN, WHITE + problem.problem_title + GREEN))
+        self.app.log.info("Opening %s[%s] %s" % (WHITE, DIFFICULTY_DISPLAY[problem.difficulty], problem.problem_title))
         webbrowser.open(problem.url, new = 2)
 
         start = time.time()

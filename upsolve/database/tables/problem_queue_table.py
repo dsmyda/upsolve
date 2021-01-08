@@ -10,7 +10,6 @@ class ProblemQueueTable:
 
     def add(self, *args):
         ''' Add problems to the table '''
-
         return self.table.insert_multiple(args)
 
     def all(self):

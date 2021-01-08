@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ..constants import GREEN, WHITE, DIFFICULTY_DISPLAY, CODES
+from ..constants import ORANGE, GREEN, WHITE, DIFFICULTY_DISPLAY, CODES
 from argparse import ArgumentTypeError
 
 class Contest(Controller):
@@ -37,10 +37,11 @@ class Contest(Controller):
               {'help': 'Contest number (Ex: 220) ',
                'action': 'store',
                'type' : validate_integer} ),
-            ( ['question'],
+            ( ['-qn'],
               {'help': 'Question number (Ex: 4) ',
                'action': 'store',
-               'type' : validate_integer} )
+               'type' : validate_integer,
+               'dest' : 'question'} )
         ],
     )
     def contest(self):
@@ -50,17 +51,27 @@ class Contest(Controller):
         question_number = self.app.pargs.question
         contest_number = self.app.pargs.number
 
-        if self.app.problems_table.exists(contest_code, contest_number, question_number):
-            log.info("Problem already exists, exiting...")
-            return
-
         contest_handler = self.app.handler.get('contest_api', contest_code, setup=True)
-        problem_metadata = contest_handler.get_metadata(contest_number, question_number)
-
-        id = self.app.problems_table.add(problem_metadata)[0]
-
-        log.debug("Successfully inserted into the problems table: %s" % str(problem_metadata))
-        log.info("%s Problem %s successfully added." %
-            (DIFFICULTY_DISPLAY[problem_metadata.difficulty] + GREEN, WHITE + problem_metadata.problem_title + GREEN))
-        log.info("Problem is currently position %d in the queue." % id)
-        log.info("Consider shuffling for a random order (run 'upsolve shuffle').\n")
+        if question_number:
+            problem_metadata = contest_handler.get_metadata(contest_number, question_number)
+            id = self.app.problems_table.add(problem_metadata)[0]
+            print()
+            log.debug("Successfully inserted into the problems table: %s" % str(problem_metadata))
+            log.info("%s[%s] %s successfully added." %
+                (WHITE, DIFFICULTY_DISPLAY[problem_metadata.difficulty], problem_metadata.problem_title + GREEN))
+        else:
+            problem_metadatas = contest_handler.get_all_questions_metadata(contest_number)
+            print()
+            ids = self.app.problems_table.add(*problem_metadatas)
+            log.debug("Successfully inserted into the problems table: %s" % str(problem_metadatas))
+            log.info("Successfully queued the following problems")
+            for problem in problem_metadatas:
+                log.info("%s[%s] %s" % (
+                    WHITE,
+                    DIFFICULTY_DISPLAY[problem.difficulty],
+                    WHITE + problem.problem_title + GREEN))
+        print()
+        log.info("Queue currently has %s%d%s problems" % (ORANGE, self.app.problems_table.size(), GREEN))
+        log.info("You can view the queue by running %s'upsolve list'" % WHITE)
+        log.info("You can reorder the queue by running %s'upsolve shuffle'" % WHITE)
+        log.info("You can clear the queue by running %s'upsolve clear'\n" % WHITE)

@@ -13,3 +13,6 @@ class TagStatsTable:
 
     def all(self, difficulty):
         return []
+
+    def update_tag_counts(self, *problems):
+        pass

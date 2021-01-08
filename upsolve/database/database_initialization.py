@@ -18,6 +18,5 @@ def database_initialization_hook(app):
         os.makedirs(db_dir)
 
     tiny_db = TinyDB(db_absolute_path)
-    app.extend('problems_table', ProblemsTable(tiny_db))
-    app.extend('tag_stats_table', TagStatsTable(tiny_db))
+    app.extend('db', tiny_db)
     app.log.debug("TinyDB initialization successful, connected to %s" % db_absolute_path)

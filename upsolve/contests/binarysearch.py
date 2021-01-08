@@ -29,6 +29,9 @@ def create_problem_instance(code, contest_number, question_number, contest_metad
     problem.problem_title = question_metadata['title']
     problem.url = PROBLEM_URL_TEMPLATE % question_metadata['slug']
     problem.difficulty = DIFFICULTY[question_metadata['difficulty']]
+
+    for topic in question_metadata['topics']:
+        problem.add_tag(topic['tag'])
     return problem
 
 def get_all_problems(log, code, type, contest_number):

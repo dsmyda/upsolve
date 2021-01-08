@@ -14,7 +14,8 @@ columns = Namespace(
     difficulty =     "difficulty",
     contest_number = "contest_number",
     problem_number = "problem_number",
-    contest_code =   "contest_code"
+    contest_code =   "contest_code",
+    tags =           "tags"
 )
 
 class Problem(Mapping):
@@ -26,6 +27,8 @@ class Problem(Mapping):
         self._info = info
         if columns.uuid not in self._info:
             self._info[columns.uuid] = str(uuid.uuid1())
+        if columns.tags not in self._info:
+            self._info[columns.tags] = []
 
     def values(self):
         ''' Table values for display '''
@@ -54,6 +57,14 @@ class Problem(Mapping):
 
     def __str__(self):
         return str(self._info)
+
+    @property
+    def tags(self):
+        return self._info[columns.tags]
+
+    def add_tag(self, tag):
+        normalized_tag = tag.lower().strip()
+        self._info[columns.tags].append(tag)
 
     @property
     def contest_code(self):

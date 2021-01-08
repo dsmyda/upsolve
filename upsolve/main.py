@@ -1,5 +1,3 @@
-from cement import App, TestApp, init_defaults
-from cement.core.exc import CaughtSignal
 from .commands.base import Base
 from .commands.clear import Clear
 from .commands.list import List
@@ -11,6 +9,10 @@ from .contests.contest_interface import ContestInterface
 from .contests.leetcode import LeetcodeWeekly, LeetcodeBiweekly
 from .contests.binarysearch import BinarysearchWeekly, BinarysearchEdu
 from .database.database_initialization import database_initialization_hook
+from .services.service_initialization import service_initialization_hook
+
+from cement import App, TestApp, init_defaults
+from cement.core.exc import CaughtSignal
 
 # configuration defaults
 CONFIG = init_defaults('upsolve')
@@ -46,7 +48,8 @@ class Upsolve(App):
         ]
 
         hooks = [
-            ('post_setup', database_initialization_hook)
+            ('post_setup', database_initialization_hook),
+            ('post_setup', service_initialization_hook)
         ]
 
 def main():

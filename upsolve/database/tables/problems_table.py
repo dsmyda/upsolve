@@ -8,9 +8,9 @@ class ProblemsTable:
     def __init__(self, tinydb):
         self.table = tinydb.table(TABLE_NAME)
 
-    def add(self, *args):
+    def add(self, *problems):
         ''' Add problems to the table '''
-        return self.table.insert_multiple(args)
+        return self.table.insert_multiple(problems)
 
     def all(self):
         ''' Return all problems in the table '''
@@ -33,7 +33,7 @@ class ProblemsTable:
     def drop(self):
         ''' Drop all problems in the table '''
 
-        self.table.truncate()
+        print(self.table.truncate())
 
     def pop(self):
         ''' Pop off the first problem in the table '''

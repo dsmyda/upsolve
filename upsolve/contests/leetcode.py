@@ -1,6 +1,6 @@
 from .contest_interface import ContestInterface
 from cement import Handler
-from ..database.tables.problems_table import Problem
+from ..database.problem import Problem
 import requests, json, sys
 from ..constants import PLATFORM_DISPLAY, LEETCODE, LEETCODE_WEEKLY_CODE, LEETCODE_BIWEEKLY_CODE, EASY, MEDIUM, HARD
 

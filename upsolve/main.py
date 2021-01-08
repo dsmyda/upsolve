@@ -6,11 +6,11 @@ from .commands.list import List
 from .commands.shuffle import Shuffle
 from .commands.next import Next
 from .commands.contest import Contest
+from .commands.stats import Stats
 from .contests.contest_interface import ContestInterface
 from .contests.leetcode import LeetcodeWeekly, LeetcodeBiweekly
 from .contests.binarysearch import BinarysearchWeekly, BinarysearchEdu
 from .database.database_initialization import database_initialization_hook
-from .hooks.ascii_banner import show_ascii_banner
 
 # configuration defaults
 CONFIG = init_defaults('upsolve')
@@ -39,14 +39,13 @@ class Upsolve(App):
 
         handlers = [
             # Command handlers
-            Base, Clear, List, Shuffle, Next, Contest,
+            Base, Clear, List, Shuffle, Next, Contest, Stats,
             # Contest handlers
             LeetcodeWeekly, LeetcodeBiweekly,
             BinarysearchWeekly, BinarysearchEdu
         ]
 
         hooks = [
-            ('pre_setup', show_ascii_banner),
             ('post_setup', database_initialization_hook)
         ]
 

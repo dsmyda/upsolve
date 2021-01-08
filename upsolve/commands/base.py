@@ -6,10 +6,21 @@ from argparse import ArgumentTypeError
 from tinydb import Query
 import sys
 
-VERSION_BANNER = """
-Upsolve manages and reminds you about contest problems that you weren't able to solve
+VERSION_BANNER = """ \n
+ /$$   /$$                               /$$
+| $$  | $$                              | $$
+| $$  | $$  /$$$$$$   /$$$$$$$  /$$$$$$ | $$ /$$    /$$ /$$$$$$
+| $$  | $$ /$$__  $$ /$$_____/ /$$__  $$| $$|  $$  /$$//$$__  $$
+| $$  | $$| $$  \ $$|  $$$$$$ | $$  \ $$| $$ \  $$/$$/| $$$$$$$$
+| $$  | $$| $$  | $$ \____  $$| $$  | $$| $$  \  $$$/ | $$_____/
+|  $$$$$$/| $$$$$$$/ /$$$$$$$/|  $$$$$$/| $$   \  $/  |  $$$$$$$
+\______/ | $$____/ |_______/  \______/ |__/    \_/    \_______/
+         | $$
+         | $$                                        CLI v%s
+         |__/                                 created by dsmyda
+
 %s
-""" % (get_version_banner())
+      """ % (get_version(), get_version_banner())
 
 
 class Base(Controller):

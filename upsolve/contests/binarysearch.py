@@ -2,7 +2,7 @@ from .contest_interface import ContestInterface
 from ..constants import GREEN, PLATFORM_DISPLAY, BINARYSEARCH, BINARYSEARCH_WEEKLY_CODE, BINARYSEARCH_EDUCATIONAL_CODE, EASY, MEDIUM, HARD, HARDER
 import requests, json, sys
 from cement import Handler
-from ..database.tables.problems_table import Problem
+from ..database.problem import Problem
 
 ALL_CONTESTS_URL = "https://api.binarysearch.io/contests"
 

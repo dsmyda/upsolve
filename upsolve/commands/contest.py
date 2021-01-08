@@ -66,9 +66,7 @@ class Contest(Controller):
             log.debug("Successfully inserted into the problems table: %s" % str(problem_metadatas))
             log.info("Successfully queued the following problems")
             for problem in problem_metadatas:
-                log.info("%s[%s] %s" % (
-                    WHITE,
-                    DIFFICULTY_DISPLAY[problem.difficulty],
+                log.info("%s[%s] %s" % (WHITE, DIFFICULTY_DISPLAY[problem.difficulty],
                     WHITE + problem.problem_title + GREEN))
         print()
         log.info("Queue currently has %s%d%s problems" % (ORANGE, self.app.problems_table.size(), GREEN))

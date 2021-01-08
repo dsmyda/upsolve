@@ -63,9 +63,13 @@ class LeetcodeWeekly(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for weekly contest metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
+        log.info("Querying %s for weekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
         return query(log, LEETCODE_WEEKLY_CODE, contest_number,
             question_number, LeetcodeWeekly.URL_TEMPLATE)
+
+    def get_all_questions_metadata(self, contest_number):
+        log = self.app.log
+        log.info("Querying %s for all weekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
 
 class LeetcodeBiweekly(ContestInterface, Handler):
 
@@ -76,6 +80,10 @@ class LeetcodeBiweekly(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for biweekly contest metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
+        log.info("Querying %s for biweekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))
         return query(log, LEETCODE_BIWEEKLY_CODE, contest_number,
             question_number, LeetcodeBiweekly.BIWEEKLY_URL_TEMPLATE)
+
+    def get_all_questions_metadata(self, contest_number):
+        log = self.app.log
+        log.info("Querying %s for all biweekly question metadata..." % (PLATFORM_DISPLAY[LEETCODE] + GREEN))

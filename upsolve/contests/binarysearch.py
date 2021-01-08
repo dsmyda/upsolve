@@ -73,9 +73,13 @@ class BinarysearchWeekly(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for weekly contest metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
+        log.info("Querying %s for weekly question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
         return query(log, BINARYSEARCH_WEEKLY_CODE,
             BinarysearchWeekly.JSON_KEY, contest_number, question_number)
+
+    def get_all_questions_metadata(self, contest_number):
+        log = self.app.log
+        log.info("Querying %s for all weekly question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
 
 class BinarysearchEdu(ContestInterface, Handler):
 
@@ -86,6 +90,10 @@ class BinarysearchEdu(ContestInterface, Handler):
 
     def get_metadata(self, contest_number, question_number):
         log = self.app.log
-        log.info("Querying %s for educational contest metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
+        log.info("Querying %s for educational question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))
         return query(log, BINARYSEARCH_EDUCATIONAL_CODE,
             BinarysearchEdu.JSON_KEY, contest_number, question_number)
+
+    def get_all_questions_metadata(self, contest_number):
+        log = self.app.log
+        log.info("Querying %s for all educational question metadata..." % (PLATFORM_DISPLAY[BINARYSEARCH] + GREEN))

@@ -1,6 +1,6 @@
-from ..constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY
+from ...constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY
 from collections.abc import Mapping
-from .namespace import Namespace
+from ..namespace import Namespace
 import uuid
 
 # column keys

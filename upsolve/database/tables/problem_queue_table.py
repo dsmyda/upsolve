@@ -1,5 +1,5 @@
 from tinydb import where, Query
-from ..problem import Problem, columns
+from ..model.problem import Problem, columns
 
 TABLE_NAME = "problems"
 

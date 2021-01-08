@@ -1,5 +1,5 @@
 from cement import Controller, ex
-from ..database.problem import Problem
+from ..database.model.problem import Problem
 
 class List(Controller):
 

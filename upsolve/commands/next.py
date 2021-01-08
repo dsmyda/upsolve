@@ -1,7 +1,7 @@
 from cement import Controller, ex
 import webbrowser, time, datetime
 from cement import shell
-from ..constants import DIFFICULTY_DISPLAY, GREEN, RED
+from ..constants import DIFFICULTY_DISPLAY, GREEN, RED, WHITE
 
 class Next(Controller):
 
@@ -20,7 +20,7 @@ class Next(Controller):
             self.app.log.warning("Nothing to do!\n")
             return
 
-        self.app.log.info("Opening %s%s problem '%s'" % (DIFFICULTY_DISPLAY[problem.difficulty], GREEN, problem.title))
+        self.app.log.info("Opening %s%s problem %s" % (DIFFICULTY_DISPLAY[problem.difficulty], GREEN, WHITE + problem.problem_title + GREEN))
         webbrowser.open(problem.url, new = 2)
 
         start = time.time()
@@ -33,5 +33,5 @@ class Next(Controller):
         minutes, seconds = divmod(elapsed, 60)
         hours, minutes = divmod(minutes, 60)
 
-        self.app.log.info("'%s' took you %s%s\n" % (problem.title, RED,
+        self.app.log.info("%s took you %s%s\n" % (WHITE + problem.problem_title + GREEN, RED,
         '{:d}:{:02d}:{:02d}s'.format(hours, minutes, seconds)))

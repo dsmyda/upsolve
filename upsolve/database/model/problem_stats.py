@@ -1,6 +1,5 @@
 from collections.abc import Mapping
 from ...namespace import Namespace
-from sortedcontainers import SortedList
 import uuid
 from ...constants import BLUE, WHITE
 
@@ -82,7 +81,7 @@ class ProblemStats(Mapping):
     def median_time(self):
         if not self.times:
             return 0
-        sorted_times = SortedList(self.times)
+        sorted_times = list(sorted(self.times))
         n = len(sorted_times)
 
         if n % 2 == 1:

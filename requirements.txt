@@ -4,5 +4,4 @@ pyyaml
 colorlog
 tinydb
 tabulate
-sortedcontainers
 gql[requests]

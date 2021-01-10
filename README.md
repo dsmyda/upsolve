@@ -1,3 +1,3 @@
-# Upsolve
+![](/docs/logo.png)
 
-Upsolve manages and reminds you about contest problems that you weren\'t able to solve.
+Upsolve is an easy to use CLI that manages contest problems that you weren't able to solve. It provides basic analytics to help you pinpoint weaknesses and increase your contest rating.

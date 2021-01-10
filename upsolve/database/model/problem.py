@@ -1,7 +1,6 @@
-from ...constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY
+from ...constants import DIFFICULTY_DISPLAY, PLATFORM_DISPLAY, contest_display, platform_display, difficulty_display
 from collections.abc import Mapping
 from ...namespace import Namespace
-from sortedcontainers import SortedList
 import uuid
 
 # column keys
@@ -30,33 +29,21 @@ class Problem(Mapping):
         if columns.tags not in self._info:
             self._info[columns.tags] = []
 
-    def values(self):
+    def display_values(self):
         ''' Table values for display '''
 
         return [
-            PLATFORM_DISPLAY[self.platform],
-            self.contest_title,
+            platform_display(self.platform),
+            contest_display(self.contest_title),
             self.problem_title,
-            DIFFICULTY_DISPLAY[self.difficulty]
+            difficulty_display(self.difficulty)
         ]
 
     @staticmethod
-    def headers():
+    def display_headers():
         ''' Table headers for display '''
 
         return [columns.platform, columns.contest_title, columns.problem_title, columns.difficulty]
-
-    def __getitem__(self, key):
-        return self._info[key]
-
-    def __iter__(self):
-        return iter(self._info)
-
-    def __len__(self):
-        return len(self._info)
-
-    def __str__(self):
-        return str(self._info)
 
     @property
     def tags(self):
@@ -129,3 +116,15 @@ class Problem(Mapping):
     @difficulty.setter
     def difficulty(self, difficulty):
         self._info[columns.difficulty] = difficulty
+
+    def __getitem__(self, key):
+        return self._info[key]
+
+    def __iter__(self):
+        return iter(self._info)
+
+    def __len__(self):
+        return len(self._info)
+
+    def __str__(self):
+        return str(self._info)

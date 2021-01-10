@@ -1,8 +1,6 @@
 import os
 from tinydb import TinyDB, Query
 from cement.utils import fs
-from .tables.problems_table import ProblemsTable
-from .tables.tag_stats_table import TagStatsTable
 
 def database_initialization_hook(app):
     ''' Database init hook run before command processing '''

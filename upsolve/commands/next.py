@@ -15,7 +15,7 @@ class Next(Controller):
     )
     def next(self):
         print()
-        problem = self.app.problems_service.get_next()
+        problem = self.app.problems_service.next_problem()
         if not problem:
             self.app.log.warning("Nothing to do!\n")
             return
@@ -29,6 +29,8 @@ class Next(Controller):
 
         end = time.time()
         elapsed = int(end - start)
+
+        self.app.stats_service.update(problem, elapsed)
 
         minutes, seconds = divmod(elapsed, 60)
         hours, minutes = divmod(minutes, 60)

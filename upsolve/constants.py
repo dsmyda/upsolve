@@ -44,3 +44,13 @@ PLATFORM_DISPLAY = {
     LEETCODE : GREEN + LEETCODE + WHITE,
     BINARYSEARCH: BLUE + BINARYSEARCH + WHITE
 }
+
+
+def platform_display(platform):
+    return PLATFORM_DISPLAY[platform]
+
+def difficulty_display(difficulty):
+    return DIFFICULTY_DISPLAY[difficulty]
+
+def contest_display(name):
+    return PURPLE + name + WHITE

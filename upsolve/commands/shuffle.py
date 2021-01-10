@@ -15,7 +15,7 @@ class Shuffle(Controller):
     def shuffle(self):
         print()
         log = self.app.log
-        problems = self.app.problems_service.get_all()
+        problems = self.app.problems_service.list()
         random.shuffle(problems)
         self.app.problems_service.delete_all()
         self.app.problems_service.save(*problems)

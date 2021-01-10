@@ -6,8 +6,10 @@ from .commands.next import Next
 from .commands.contest import Contest
 from .commands.stats import Stats
 from .contests.contest_interface import ContestInterface
-from .contests.leetcode import LeetcodeWeekly, LeetcodeBiweekly
-from .contests.binarysearch import BinarysearchWeekly, BinarysearchEdu
+from .contests.leetcode_weekly import LeetcodeWeekly
+from .contests.leetcode_biweekly import LeetcodeBiweekly
+from .contests.binarysearch_weekly import BinarysearchWeekly
+from .contests.binarysearch_educational import BinarysearchEdu
 from .database.database_initialization import database_initialization_hook
 from .services.service_initialization import service_initialization_hook
 

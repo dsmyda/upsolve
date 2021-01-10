@@ -17,7 +17,7 @@ class Clear(Controller):
     def clear(self):
         print()
         log = self.app.log
-        pending_problems = self.app.problems_service.size()
+        pending_problems = self.app.problems_service.count()
         log.warning("Dropping %d pending problem(s)." % pending_problems)
 
         p = shell.Prompt("Are you sure want to continue?", options=[YES_OPTION, NO_OPTION])

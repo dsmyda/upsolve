@@ -9,16 +9,16 @@ class ContestInterface(Interface):
         interface = "contest_api"
 
     @abstractmethod
-    def get_metadata(self, contest_number, question_number):
+    def get_contest_problems(self, contest_number):
         '''
-        Get problem metadata from the contest using the contest number
-        and question number.
+        Get all problem metadata from the contest.
         '''
         pass
 
     @abstractmethod
-    def get_all_questions_metadata(self, contest_number):
+    def get_contest_problem(self, contest_number, question_number):
         '''
-        Get all problem metadata from the contest.
+        Get problem metadata from the contest using the contest number
+        and question number.
         '''
         pass

@@ -13,7 +13,7 @@ class List(Controller):
     )
     def list(self):
         print()
-        headers = Problem.headers()
-        problems = self.app.problems_service.get_all()
-        values = [problem.values() for problem in problems]
+        headers = Problem.display_headers()
+        problems = self.app.problems_service.list()
+        values = [problem.display_values() for problem in problems]
         self.app.render(values, headers=headers)

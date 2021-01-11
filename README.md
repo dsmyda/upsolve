@@ -5,3 +5,5 @@ An easy to use CLI tool to increase your contest ratings
 
 * Manage problems you weren't able to solve
 * Get basic analytics to pinpoint weaknesses
+
+Ships with support for [binarysearch](https://binarysearch.com/), [leetcode](https://leetcode.com/) and [codeforces](https://codeforces.com/)

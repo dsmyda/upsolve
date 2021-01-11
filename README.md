@@ -3,5 +3,5 @@
 
 An easy to use CLI tool to increase your contest ratings
 
-* Manage contest problems you weren't able to solve
+* Manage problems you weren't able to solve
 * Get basic analytics to pinpoint weaknesses

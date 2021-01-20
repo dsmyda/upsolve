@@ -30,8 +30,6 @@ class Next(Controller):
         end = time.time()
         elapsed = int(end - start)
 
-        self.app.stats_service.update(problem, elapsed)
-
         minutes, seconds = divmod(elapsed, 60)
         hours, minutes = divmod(minutes, 60)
 

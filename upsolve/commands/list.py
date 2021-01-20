@@ -14,6 +14,6 @@ class List(Controller):
     def list(self):
         print()
         headers = Problem.display_headers()
-        problems = self.app.problems_service.list()
+        problems = self.app.problems_queue.list()
         values = [problem.display_values() for problem in problems]
         self.app.render(values, headers=headers)

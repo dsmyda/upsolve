@@ -15,6 +15,6 @@ class Stats(Controller):
     def stats(self):
         print()
         self.app.log.info("Top 10 problem tags")
-        tag_metrics = self.app.stats_service.list_top_tags()
+        tag_metrics = self.app.problem_metrics.list_top_tags()
         metrics_display = [metric.display_values() for metric in tag_metrics[:10]]
         self.app.render(metrics_display, headers=TagMetrics.headers())

@@ -15,9 +15,9 @@ class Shuffle(Controller):
     def shuffle(self):
         print()
         log = self.app.log
-        problems = self.app.problems_service.list()
+        problems = self.app.problems_queue.list()
         random.shuffle(problems)
-        self.app.problems_service.delete_all()
-        self.app.problems_service.save(*problems)
+        self.app.problems_queue.delete_all()
+        self.app.problems_queue.save(*problems)
         log.info("Shuffled %d problems" % len(problems))
         log.info("You can view the new queue by running %s'upsolve list'\n" % WHITE)

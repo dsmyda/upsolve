@@ -54,7 +54,7 @@ class Contest(Controller):
         contest_handler = self.app.handler.get('contest_api', contest_code, setup=True)
         if question_number:
             problem_metadata = contest_handler.get_contest_problem(contest_number, question_number)
-            self.app.problems_service.save(problem_metadata)
+            self.app.problems_queue.save(problem_metadata)
             print()
             log.debug("Successfully inserted into the problems table: %s" % str(problem_metadata))
             log.info("%s[%s] %s successfully added." %
@@ -62,14 +62,14 @@ class Contest(Controller):
         else:
             problem_metadatas = contest_handler.get_contest_problems(contest_number)
             print()
-            self.app.problems_service.save(*problem_metadatas)
+            self.app.problems_queue.save(*problem_metadatas)
             log.debug("Successfully inserted into the problems table: %s" % str([str(p) for p in problem_metadatas]))
             log.info("Successfully queued the following problems")
             for problem in problem_metadatas:
                 log.info("%s[%s] %s" % (WHITE, DIFFICULTY_DISPLAY[problem.difficulty],
                     WHITE + problem.problem_title + GREEN))
         print()
-        log.info("Queue currently has %s%d%s problems" % (ORANGE, self.app.problems_service.count(), GREEN))
+        log.info("Queue currently has %s%d%s problems" % (ORANGE, self.app.problems_queue.count(), GREEN))
         log.info("You can view the queue by running %s'upsolve list'" % WHITE)
         log.info("You can reorder the queue by running %s'upsolve shuffle'" % WHITE)
         log.info("You can clear the queue by running %s'upsolve clear'\n" % WHITE)

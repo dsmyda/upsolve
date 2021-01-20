@@ -1,6 +1,5 @@
 from cement import Controller, shell, ex
 from ..constants import WHITE
-from collections import Counter
 
 YES_OPTION, NO_OPTION = "y", "n"
 

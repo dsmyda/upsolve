@@ -15,7 +15,7 @@ class Next(Controller):
     )
     def next(self):
         print()
-        problem = self.app.problems_service.next_problem()
+        problem = self.app.problems_queue.next_problem()
         if not problem:
             self.app.log.warning("Nothing to do!\n")
             return

@@ -6,6 +6,6 @@ An easy to use CLI tool to increase your contest ratings
 * <kbd>MANAGE</kbd> problems you weren't able to solve
 * Get basic <kbd>ANALYTICS</kbd> to pinpoint weaknesses
 
-Ships with support for <kbd>[binarysearch](https://binarysearch.com/)</kbd>, <kbd>[leetcode](https://leetcode.com/)</kbd> and <kbd>[codeforces](https://codeforces.com/)</kbd>
+Ships with support for <kbd>[binarysearch](https://binarysearch.com/)</kbd> and <kbd>[leetcode](https://leetcode.com/)</kbd>
 
 Demo gif coming..
